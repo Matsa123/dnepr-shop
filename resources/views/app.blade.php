@@ -10,7 +10,16 @@
 </head>
 
 <body>
-    @yield('content')
+    <div class="page-wrapper">
+        @include('header')
+
+        <main class="content">
+            @yield('content')
+        </main>
+
+        @include('footer')
+    </div>
+
     @vite(['resources/js/app.js'])
     @stack('scripts')
 </body>

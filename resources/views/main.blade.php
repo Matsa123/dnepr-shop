@@ -6,8 +6,8 @@
     @vite(['resources/css/main.css'])
 @endpush
 
-
-
 @section('content')
-    <div class="main_container">Контент тут</div>
+    <!-- Основний контент сторінки -->
+    <h1>Контент сторінки</h1>
+    <p>Текст або інші елементи...</p>
 @endsection

@@ -1,1 +1,30 @@
+@import './header.css';
+@import './footer.css';
 
+/* Обнуляємо все */
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* Body — обгортка для всього */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Головний обгортуючий контейнер */
+.page-wrapper {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+/* Основний контент */
+.content {
+    flex: 1;
+    padding: 20px;
+}
