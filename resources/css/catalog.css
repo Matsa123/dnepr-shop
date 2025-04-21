@@ -1,0 +1,82 @@
+.catalog-page {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.filters {
+    width: 100%;
+}
+
+.filters-form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-self: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.products {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    gap: 20px;
+}
+
+.filters-form {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #fff;
+    border-radius: 12px;
+}
+
+.filters-form select,
+.filters-form button {
+
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #f9f9f9;
+    transition: border-color 0.2s ease;
+    min-width: 120px;
+}
+
+.filters-form select:focus,
+.filters-form button:focus {
+    border-color: #52006f;
+    outline: none;
+    background-color: #fff;
+}
+
+.filters-form select:hover {
+    cursor: pointer;
+    background-color: #d99feb;
+    color: white;
+}
+
+.filters-form button {
+    background-color: #5f0f77;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.2s ease;
+}
+
+.filters-form button:hover {
+    background-color: #b738de;
+}
+
+@media (max-width: 768px) {
+    .catalog-page {
+        flex-direction: column;
+    }
+
+    .filters {
+        width: 100%;
+    }
+}

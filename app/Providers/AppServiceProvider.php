@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Providers;
+use Blade;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -17,8 +18,11 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
-    public function boot(): void
+    public function boot()
     {
-        //
+        // Регистрируем директиву @active
+        Blade::directive('active', function ($expression) {
+            return "<?php echo request()->routeIs($expression) ? 'active' : ''; ?>";
+        });
     }
 }
