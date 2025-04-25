@@ -10,7 +10,8 @@ export default defineConfig({
                 'resources/css/catalog/css',
                 'resources/js/catalog.js',
                 'resources/css/about_us/css',
-                'resources/css/contacts/css'
+                'resources/css/contacts/css',
+                'resources/js/brand.js',
             ],
             refresh: true,
         }),

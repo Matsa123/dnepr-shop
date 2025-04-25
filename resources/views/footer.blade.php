@@ -9,9 +9,14 @@
             <div class="footer-block">
                 <h4>Навігація</h4>
                 <ul>
-                    <li><a href="#">Про нас</a></li>
+                    <li><a href="{{ route('about_us') }}" class="@active('about_us')">
+                            Про нас
+                        </a></li>
                     <li><a href="#">Доставка</a></li>
                     <li><a href="#">Політика конфіденційності</a></li>
+                    <li><a href="{{ route('manage') }}">
+                            Для розробників
+                        </a></li>
                 </ul>
             </div>
 

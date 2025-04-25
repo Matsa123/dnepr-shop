@@ -42,6 +42,8 @@
     background-color: #f9f9f9;
     transition: border-color 0.2s ease;
     min-width: 120px;
+    height: 40px;
+    text-align: center;
 }
 
 .filters-form select:focus,

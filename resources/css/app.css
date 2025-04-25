@@ -1,6 +1,8 @@
 @import './header.css';
 @import './footer.css';
-
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 /* Обнуляємо все */
 html,
 body {
