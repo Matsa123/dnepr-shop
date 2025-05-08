@@ -81,12 +81,12 @@
                         Пол:
                         <select name="gender">
                             <option value="">Выберите</option>
-                            <option value="male" {{ old('gender', $product->gender ?? '') === 'male' ? 'selected' : '' }}>
-                                Мужской</option>
-                            <option value="female" {{ old('gender', $product->gender ?? '') === 'female' ? 'selected' : '' }}>
-                                Женский</option>
-                            <option value="kids" {{ old('gender', $product->gender ?? '') === 'kids' ? 'selected' : '' }}>
-                                Детский</option>
+                            <option value="Чоловіча" {{ old('gender', $product->gender ?? '') === 'Чоловіча' ? 'selected' : '' }}>
+                                Чоловіча</option>
+                            <option value="Жіноча" {{ old('gender', $product->gender ?? '') === 'Жіноча' ? 'selected' : '' }}>
+                                Жіноча</option>
+                            <option value="Дитяча" {{ old('gender', $product->gender ?? '') === 'Дитяча' ? 'selected' : '' }}>
+                                Дитяча</option>
                         </select>
                     </label>
 

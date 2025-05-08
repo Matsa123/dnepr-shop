@@ -1,44 +1,78 @@
 <form id="filter-form" class="filters-form" method="GET" action="{{ route('catalog.filter') }}">
-    <select name="brand" class="filter-select">
-        <option value="">Бренд</option>
-        <option value="Nike">Nike</option>
-        <option value="Adidas">Adidas</option>
-    </select>
 
-    <select name="type" class="filter-select">
-        <option value="">Тип</option>
-        <option value="tshirt">Футболки</option>
-        <option value="pants">Штани</option>
-        <option value="hoodie">Худі</option>
-    </select>
+    {{-- Бренд --}}
+    <div class="dropdown" data-name="brand">
+        <button type="button" class="dropdown-btn" data-default="Бренд">Бренд</button>
+        <div class="dropdown-content">
+        <div class="dropdown-item" data-value="">Не вибрано</div>
+            @foreach($brands as $brand)
+                <div class="dropdown-item" data-value="{{ $brand }}">{{ $brand }}</div>
+            @endforeach
+        </div>
+    </div>
 
-    <select name="sizez" class="filter-select">
-        <option value="">Розмір</option>
-        <option value="S">S</option>
-        <option value="M">M</option>
-        <option value="L">L</option>
-    </select>
+    {{-- Тип --}}
+    <div class="dropdown" data-name="type">
+        <button type="button" class="dropdown-btn" data-default="Тип">Тип</button>
+        <div class="dropdown-content">
+        <div class="dropdown-item" data-value="">Не вибрано</div>
+            @foreach($types as $type)
+                <div class="dropdown-item" data-value="{{ $type }}">{{ $type }}</div>
+            @endforeach
+        </div>
+    </div>
 
-    <select name="color" class="filter-select">
-        <option value="">Колір</option>
-        <option value="black">Чорний</option>
-        <option value="white">Білий</option>
-    </select>
+    {{-- Розмір --}}
+    <div class="dropdown" data-name="size">
+        <button type="button" class="dropdown-btn" data-default="Розмір">Розмір</button>
+        <div class="dropdown-content">
+        <div class="dropdown-item" data-value="">Не вибрано</div>
+            @foreach($sizes as $size)
+                <div class="dropdown-item" data-value="{{ $size }}">{{ $size }}</div>
+            @endforeach
+        </div>
+    </div>
 
-    <select name="gender" class="filter-select">
-        <option value="">Стать</option>
-        <option value="male">Чоловіча</option>
-        <option value="female">Жіноча</option>
-        <option value="kids">Дитяча</option>
-    </select>
+    {{-- Колір --}}
+    <div class="dropdown" data-name="color">
+        <button type="button" class="dropdown-btn" data-default="Колір">Колір</button>
+        <div class="dropdown-content">
+        <div class="dropdown-item" data-value="">Не вибрано</div>
+            @foreach($colors as $color)
+                <div class="dropdown-item" data-value="{{ $color }}">{{ ucfirst($color) }}</div>
+            @endforeach
+        </div>
+    </div>
 
-    <select name="sort" class="filter-select">
-        <option value="">Сортувати</option>
-        <option value="price_asc">Ціна ↑</option>
-        <option value="price_desc">Ціна ↓</option>
-        <option value="name_asc">Ім’я ↑</option>
-        <option value="name_desc">Ім’я ↓</option>
-    </select>
+    {{-- Стать --}}
+    <div class="dropdown" data-name="gender">
+        <button type="button" class="dropdown-btn" data-default="Стать">Стать</button>
+        <div class="dropdown-content">
+        <div class="dropdown-item" data-value="">Не вибрано</div>
+            @foreach($genders as $gender)
+                <div class="dropdown-item" data-value="{{ $gender }}">{{ ucfirst($gender) }}</div>
+            @endforeach
+        </div>
+    </div>
+
+    {{-- Сортування --}}
+    <div class="dropdown" data-name="sort">
+        <button type="button" class="dropdown-btn" data-default="Сортувати">Сортувати</button>
+        <div class="dropdown-content">
+        <div class="dropdown-item" data-value="">Не вибрано</div>
+            <div class="dropdown-item" data-value="price_asc">Ціна ↑</div>
+            <div class="dropdown-item" data-value="price_desc">Ціна ↓</div>
+            <div class="dropdown-item" data-value="name_asc">Ім’я ↑</div>
+            <div class="dropdown-item" data-value="name_desc">Ім’я ↓</div>
+        </div>
+    </div>
+    <!-- Скрытые input'ы для фильтрации -->
+    <input type="hidden" name="brand">
+    <input type="hidden" name="type">
+    <input type="hidden" name="size">
+    <input type="hidden" name="color">
+    <input type="hidden" name="gender">
+    <input type="hidden" name="sort">
 
     <button type="button" id="reset-filters">Скинути фільтри</button>
 </form>

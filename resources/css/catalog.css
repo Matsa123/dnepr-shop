@@ -10,67 +10,89 @@
 
 .filters-form {
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-self: center;
     flex-wrap: wrap;
-    gap: 10px;
-}
-
-.products {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    gap: 16px;
     justify-content: space-around;
     align-items: center;
-    gap: 20px;
 }
 
-.filters-form {
+.dropdown {
     display: flex;
-    flex-wrap: wrap;
-    background-color: #fff;
-    border-radius: 12px;
+    flex-direction: row;
+    justify-content: center;
+    position: relative;
 }
 
-.filters-form select,
-.filters-form button {
-
+.dropdown-btn {
+    background-color: #e6e7e1;
+    color: #313131;
+    padding: 5px 10px;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    font-weight: 600;
     font-size: 14px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    background-color: #f9f9f9;
-    transition: border-color 0.2s ease;
-    min-width: 120px;
-    height: 40px;
-    text-align: center;
-}
-
-.filters-form select:focus,
-.filters-form button:focus {
-    border-color: #D9FF00;
-    outline: none;
-    background-color: #fff;
-}
-
-.filters-form select:hover {
     cursor: pointer;
-    background-color: #D9FF00;
-    color: black;
+    transition: all 0.3s ease;
 }
 
-.filters-form button {
-    background-color: #D9FF00;
-    color: black;
+.dropdown-btn:hover,
+.dropdown-btn:focus {
+    background-color: #c0e600;
+    outline: none;
+    border-color: #a7cc00;
+    box-shadow: 0 0 0 3px rgba(217, 255, 0, 0.4);
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    background-color: #e4e4e1;
+    border-radius: 10px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    z-index: 20;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+}
+
+.dropdown-content.show {
+    display: block;
+}
+
+.dropdown-item {
+    padding: 0px 10px;
+    font-size: 14px;
+    color: #333;
+    transition: background-color 0.2s ease;
+}
+.dropdown-item:hover { 
+    cursor: pointer;
+}
+.dropdown-item[data-value=""] {
+    white-space: nowrap;
+    color: #888;
+}
+
+.dropdown-item:hover {
+    background-color: #e1ebb5;
+}
+
+/* Кнопка сброса */
+#reset-filters {
+    background-color: #e6f58d;
+    color: #000;
+    padding: 3px 3px;
+    border: none;
+    border-radius: 10px;
     font-size: 12px;
     font-weight: 600;
     cursor: pointer;
-    border: none;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.3s ease;
 }
 
-.filters-form button:hover {
-    opacity: 0.7;
+#reset-filters:hover {
+    background-color: #c0e600;
 }
 
 @media (max-width: 768px) {
@@ -81,6 +103,15 @@
     .filters {
         width: 100%;
     }
+}
+
+.products {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    gap: 20px;
 }
 
 .product-container {
@@ -99,7 +130,8 @@
     max-width: 380px;
     height: 400px;
     border-radius: 2px;
-    overflow: hidden; /* ← важно */
+    overflow: hidden;
+    /* ← важно */
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
     transition: transform 0.3s;
     background-color: #000;
@@ -111,10 +143,12 @@
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* ← важно */
+    object-fit: cover;
+    /* ← важно */
     object-position: center;
     z-index: 1;
 }
+
 .product-card:hover {
     transform: translateY(-5px);
 }
@@ -162,9 +196,11 @@
     text-decoration: none;
     white-space: nowrap;
 }
+
 .buy-now-btn:hover {
     opacity: 0.9;
 }
+
 @media (min-width: 768px) {
     .product-card {
         max-width: 360px;
