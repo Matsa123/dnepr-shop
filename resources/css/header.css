@@ -68,13 +68,13 @@
 }
 
 a.active {
-    color: #c717c6;
+    color: #5a6a00;
     font-weight: bold;
     font-size: 18px;
 }
 
 .main-nav a:hover {
-    color: #cf73d5;
+    opacity: 0.8;
 }
 
 .cart-icon a {
