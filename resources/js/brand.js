@@ -44,12 +44,13 @@ document.addEventListener('DOMContentLoaded', function () {
     const brandCustom = document.getElementById('brand_custom');
     const brandFinal = document.getElementById('brand_final');
 
-    const colorSelect = document.getElementById('color_select');
-    const colorCustom = document.getElementById('color_custom');
-
     const typeSelect = document.getElementById('type_select');
     const typeCustom = document.getElementById('type_custom');
     const typeFinal = document.getElementById('type_final');
+
+    function isValueInSelect(select, value) {
+        return Array.from(select.options).some(option => option.value === value);
+    }
 
     function syncBrand() {
         if (brandSelect.value === 'custom') {
@@ -61,12 +62,6 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    function toggleCustomColor() {
-        const colorSelect = document.getElementById('color_select');
-        const colorCustom = document.getElementById('color_custom');
-        colorCustom.style.display = colorSelect.value === 'custom' ? 'block' : 'none';
-    }
-
     function syncType() {
         if (typeSelect.value === 'custom') {
             typeCustom.style.display = 'block';
@@ -75,9 +70,9 @@ document.addEventListener('DOMContentLoaded', function () {
             typeCustom.style.display = 'none';
             typeFinal.value = typeSelect.value;
         }
+        updateShoeSizeVisibility();
     }
 
-    // Обработчики
     brandSelect.addEventListener('change', syncBrand);
     brandCustom.addEventListener('input', function () {
         if (brandSelect.value === 'custom') {
@@ -85,18 +80,48 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    colorSelect.addEventListener('change', toggleCustomColor);
-
     typeSelect.addEventListener('change', syncType);
     typeCustom.addEventListener('input', function () {
         if (typeSelect.value === 'custom') {
             typeFinal.value = typeCustom.value;
+            updateShoeSizeVisibility();
         }
     });
 
+    const brandInitialValue = brandFinal.value;
+    if (!isValueInSelect(brandSelect, brandInitialValue) && brandInitialValue) {
+        brandSelect.value = 'custom';
+        brandCustom.value = brandInitialValue;
+        syncBrand();
+    }
 
-    // Инициализация
+    const typeInitialValue = typeFinal.value;
+    if (!isValueInSelect(typeSelect, typeInitialValue) && typeInitialValue) {
+        typeSelect.value = 'custom';
+        typeCustom.value = typeInitialValue;
+        syncType();
+    }
+
     syncBrand();
-    toggleCustomColor();
     syncType();
+
+    const form = document.querySelector('form');
+    if (form) {
+        form.addEventListener('submit', function () {
+            syncBrand();
+            syncType();
+        });
+    }
+
+    function updateShoeSizeVisibility() {
+        const typeValue = typeFinal.value.toLowerCase().trim();
+        const shoeBlock = document.getElementById('shoe_sizes_block');
+        console.log('Тип товара:', typeFinal.value);
+
+        if (typeValue === 'взуття') {
+            shoeBlock.style.display = 'block';
+        } else {
+            shoeBlock.style.display = 'none';
+        }
+    }
 });

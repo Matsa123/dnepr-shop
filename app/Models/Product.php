@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Models;
-use App\Models\ProductImage;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,16 +12,18 @@ class Product extends Model
         'description',
         'brand',
         'gender',
-        'sizes',
+        'clothing_sizes', // размеры одежды
+        'shoe_sizes',     // размеры обуви
         'color',
         'price',
         'image',
     ];
 
     protected $casts = [
-        'sizes' => 'array',
+        'clothing_sizes' => 'array',
+        'shoe_sizes' => 'array',
     ];
-    
+
     public function images()
     {
         return $this->hasMany(ProductImage::class);

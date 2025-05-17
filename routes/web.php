@@ -28,4 +28,6 @@ Route::get('/catalog/filter', [CatalogController::class, 'filter'])->name('catal
 Route::get('/about_us', [AboutUsController::class, 'about_us'])->name('about_us');
 Route::get('/contacts', [ContactsController::class, 'contacts'])->name('contacts');
 
+Route::get('/product/preview/{id}', [ProductController::class, 'preview']);
+
 require __DIR__ . '/auth.php';

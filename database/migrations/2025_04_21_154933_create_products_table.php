@@ -16,7 +16,8 @@ return new class extends Migration {
             $table->text('description')->nullable();
             $table->string('brand')->nullable();
             $table->string('gender')->nullable(); // male, female, kids
-            $table->json('sizes')->nullable();    // ["S", "M", "L"]
+            $table->json('clothing_sizes')->nullable();  // ["XS", "S", "M", ...]
+            $table->json('shoe_sizes')->nullable();      // [36, 37, 38, ...]
             $table->string('color')->nullable();
             $table->integer('price');
             $table->string('image')->nullable();  // путь к изображению

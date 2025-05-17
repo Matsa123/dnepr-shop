@@ -14,8 +14,8 @@ class ProductImageController extends Controller
         $image = ProductImage::findOrFail($id);
 
         // Удаление файла
-        if ($image->path && Storage::disk('public')->exists($image->path)) {
-            Storage::disk('public')->delete($image->path);
+        if ($image->image && Storage::disk('public')->exists($image->image)) {
+            Storage::disk('public')->delete($image->image);
         }
 
         $image->delete();

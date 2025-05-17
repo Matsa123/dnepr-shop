@@ -13,7 +13,9 @@
         </aside>
         <main class="products" id="product-list">
             @include('partials.product-list', ['products' => $products])
+
         </main>
+        @include('partials.product-view')
     </div>
 @endsection
 

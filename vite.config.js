@@ -12,6 +12,7 @@ export default defineConfig({
                 'resources/css/about_us/css',
                 'resources/css/contacts/css',
                 'resources/js/brand.js',
+                'resources/js/modal_slider.js',
             ],
             refresh: true,
         }),

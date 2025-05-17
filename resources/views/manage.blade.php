@@ -60,23 +60,34 @@
                             value="{{ old('brand', $product->brand ?? '') }}">
                     </label>
                     <label>
-                        Тип товара:
-                        <select name="type_select" id="type_select" onchange="syncType()">
-                            <option value="">Выберите тип</option>
+                        Тип товару:
+                        <select name="type_select" id="type_select">
+                            <option value="">Оберіть тип</option>
                             @foreach($types as $type)
-                                <option value="{{ $type }}" {{ (old('type', $product->type ?? '') === $type) ? 'selected' : '' }}>
+                                <option value="{{ $type }}" {{ old('type', $product->type ?? '') === $type ? 'selected' : '' }}>
                                     {{ $type }}
                                 </option>
                             @endforeach
-                            <option value="custom">+ Новый тип</option>
+                            <option value="custom">+ Новий тип</option>
                         </select>
 
-                        <input type="text" name="type_custom" id="type_custom" placeholder="Введите тип"
-                            value="{{ old('type', $product->type ?? '') }}" style="display: none;" oninput="syncType()">
+                        <input type="text" name="type_custom" id="type_custom" placeholder="Введіть тип"
+                            value="{{ old('type', $product->type ?? '') }}" style="display: none;">
 
-                        <!-- Скрытое поле для отправки -->
                         <input type="hidden" name="type" id="type_final" value="{{ old('type', $product->type ?? '') }}">
                     </label>
+
+                    <div id="shoe_sizes_block" style="display: none; margin-top: 10px;">
+                        <label>Розміри взуття:</label>
+                        <div>
+                            @for ($i = 36; $i <= 46; $i++)
+                                <label style="margin-right: 10px;">
+                                    <input type="checkbox" name="shoe_sizes[]" value="{{ $i }}" {{ (is_array(old('shoe_sizes', $product->shoe_sizes ?? [])) && in_array($i, old('shoe_sizes', $product->shoe_sizes ?? []))) ? 'checked' : '' }}>
+                                    {{ $i }}
+                                </label>
+                            @endfor
+                        </div>
+                    </div>
                     <label>
                         Пол:
                         <select name="gender">
@@ -91,11 +102,10 @@
                     </label>
 
                     <label>
-                        Размеры:
-                        <select name="sizes[]" multiple>
+                        Розміри одягу:
+                        <select name="clothing_sizes[]" multiple>
                             @foreach(['XS', 'S', 'M', 'L', 'XL', 'XXL'] as $size)
-                                <option value="{{ $size }}" @if(isset($product) && in_array($size, $product->sizes ?? []))
-                                selected @endif>
+                                <option value="{{ $size }}" @if(isset($product) && in_array($size, $product->clothing_sizes ?? [])) selected @endif>
                                     {{ $size }}
                                 </option>
                             @endforeach
@@ -176,7 +186,7 @@
                     <div class="image-thumbnails" style="margin-top: 1rem;">
                         @foreach($product->images as $img)
                             <div class="thumbnail-wrapper">
-                                <img src="{{ asset('storage/' . $img->path) }}" alt="image" class="thumbnail">
+                                <img src="{{ asset('storage/' . $img->image) }}" alt="image" class="thumbnail">
                                 <form action="{{ route('product_images.destroy', $img->id) }}" method="POST"
                                     onsubmit="return confirm('Удалить это изображение?')">
                                     @csrf
