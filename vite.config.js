@@ -13,6 +13,7 @@ export default defineConfig({
                 'resources/css/contacts/css',
                 'resources/js/brand.js',
                 'resources/js/modal_slider.js',
+                'resources/js/cart.js',
             ],
             refresh: true,
         }),
