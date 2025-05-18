@@ -19,9 +19,10 @@
                 </ul>
             </nav>
             <div class="cart-icon">
-                <a href="#">
-                    🛒 <span class="cart-count">2</span>
+                <a href="{{ route('cart') }}" class="cart-link">
+                    🛒 <span id="cart-count">{{ array_sum(array_column(session('cart', []), 'quantity')) }}</span>
                 </a>
+                <div id="cart-message"></div>
             </div>
         </div>
     </div>

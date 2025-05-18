@@ -84,7 +84,7 @@ a.active {
     position: relative;
 }
 
-.cart-count {
+#cart-count {
     background-color: #f00;
     color: #fff;
     border-radius: 10px;

@@ -17,8 +17,7 @@
             <!-- Навигация -->
             <div class="swiper-button-prev swiper-button-prev-{{ $product->id }}"></div>
             <div class="swiper-button-next swiper-button-next-{{ $product->id }}"></div>
-            <!-- Пагинация -->
-            <div class="swiper-pagination swiper-pagination-{{ $product->id }}"></div>
+          
         </div>
 
         <div class="product-card-content">
@@ -26,18 +25,21 @@
                 <h3>{{ $product->name }}</h3>
                 <p>{{ $product->price }} грн</p>
             </div>
-            <a href="#" class="buy-now-btn">Купити зараз</a>
+            <a href="#" class="buy-now-btn no-modal" data-id="{{ $product->id }}">Купити зараз</a>
         </div>
     </div>
-    
+
 @empty
     <p>Нічого не знайдено</p>
 @endforelse
 
 @push('styles')
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
 @endpush
 
 @push('scripts')
-<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <script>
+        window.cartAddUrl = "{{ route('cart.add') }}";
+    </script>
 @endpush

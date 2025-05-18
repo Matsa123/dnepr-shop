@@ -173,7 +173,17 @@
     background-color: white !important;
     opacity: 1;
 }
+/* Убрать стрелки в Chrome, Edge, Safari */
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
 
+/* Убрать стрелки в Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
 .modal-slider {
     width: 100%;
     max-width: 400px;
@@ -198,7 +208,17 @@
     color: white !important;
     font-size: 20px !important;
 }
-
+#cart-message {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #4caf50;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    display: none;
+    z-index: 1000;
+}
 /* Точки пагинации белые */
 .modal-pagination .swiper-pagination-bullet {
     background-color: white !important;
@@ -246,7 +266,12 @@
     font-size: 1rem;
     margin: 0;
 }
-
+.swiper-pagination,
+.swiper-button-next,
+.swiper-button-prev {
+    position: absolute; 
+    z-index: 5 !important;
+}
 .buy-now-btn {
     padding: 6px 12px;
     background-color: #D9FF00;
@@ -256,6 +281,8 @@
     font-size: 0.9rem;
     text-decoration: none;
     white-space: nowrap;
+    z-index: 30; /* больше, чем пагинация */
+    position: relative; /* обязательно, чтобы z-index сработал */
 }
 
 .buy-now-btn:hover {

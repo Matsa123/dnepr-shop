@@ -53,6 +53,11 @@ document.addEventListener('DOMContentLoaded', function () {
     productList.addEventListener('click', (event) => {
         const target = event.target;
 
+        // Если клик по пагинации Swiper — не открывать модалку
+        if (event.target.closest('.swiper-pagination')) {
+            return;
+        }
+
         // Если клик по стрелке слайдера — ничего не делаем
         if (
             target.classList.contains('swiper-button-prev') ||
@@ -63,8 +68,12 @@ document.addEventListener('DOMContentLoaded', function () {
             return;
         }
 
-        const card = target.closest('.product-card');
+        // Игнорировать клики по ссылкам или элементам с классом no-modal
+        if (event.target.closest('a') || event.target.closest('.no-modal')) return;
+
+        const card = event.target.closest('.product-card');
         if (!card) return;
+
         event.preventDefault();
 
         const productId = card.dataset.id;
@@ -78,6 +87,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 modalBody.innerHTML = html;
                 modal.classList.remove('hidden');
                 initializeModalSwiper();
+                setupModalAddToCart();
             })
             .catch(err => {
                 console.error('Ошибка загрузки превью товара:', err);
@@ -191,4 +201,96 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Инициализация при первом запуске
     initializeSwipers();
+    function showCartMessage(msg) {
+        const el = document.getElementById('cart-message');
+        el.textContent = msg;
+        el.style.display = 'block';
+        setTimeout(() => el.style.display = 'none', 3000);
+    }
+    document.querySelectorAll('.buy-now-btn').forEach(button => {
+        button.addEventListener('click', function (event) {
+            event.preventDefault(); // Щоб не переходило по href="#"
+
+            const productId = this.getAttribute('data-id');
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+            fetch(window.cartAddUrl, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ product_id: productId })
+            })
+                .then(res => {
+                    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                    return res.json();
+                })
+                .then(data => {
+                    showCartMessage(data.message);
+                    const cartCountEl = document.getElementById('cart-count');
+                    if (cartCountEl && data.count !== undefined) {
+                        cartCountEl.textContent = data.count;
+                    }
+                })
+                .catch(error => {
+                    console.error('Помилка при додаванні товару:', error);
+                    alert('Не вдалося додати товар до корзини.');
+                });
+
+        });
+    });
+    function setupModalAddToCart() {
+        const qtyInput = modalBody.querySelector('#product-quantity');
+        const decreaseBtn = modalBody.querySelector('#decrease-qty');
+        const increaseBtn = modalBody.querySelector('#increase-qty');
+        const buyBtn = modalBody.querySelector('.buy-now-modal');
+
+        if (!qtyInput || !decreaseBtn || !increaseBtn || !buyBtn) return;
+
+        decreaseBtn.addEventListener('click', () => {
+            let val = parseInt(qtyInput.value) || 1;
+            if (val > 1) qtyInput.value = val - 1;
+        });
+
+        increaseBtn.addEventListener('click', () => {
+            let val = parseInt(qtyInput.value) || 1;
+            qtyInput.value = val + 1;
+        });
+
+        buyBtn.addEventListener('click', () => {
+            const productId = buyBtn.getAttribute('data-id');
+            const quantity = parseInt(qtyInput.value) || 1;
+
+            console.log('Отправляем quantity:', quantity); // для отладки
+
+            const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+            fetch(window.cartAddUrl, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                body: JSON.stringify({ product_id: productId, quantity: quantity })
+            })
+                .then(res => {
+                    if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+                    return res.json();
+                })
+                .then(data => {
+                    showCartMessage(data.message);
+                    const cartCountEl = document.getElementById('cart-count');
+                    if (cartCountEl && data.count !== undefined) {
+                        cartCountEl.textContent = data.count;
+                    }
+                    modal.classList.add('hidden');
+                })
+                .catch(err => {
+                    console.error('Помилка при додаванні в корзину:', err);
+                    alert('Не вдалося додати товар до корзини.');
+                });
+        });
+    }
 });
