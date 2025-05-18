@@ -39,4 +39,11 @@ Route::post('/cart/clear', [CartController::class, 'clear'])->name('cart.clear')
 
 Route::post('/order', [OrderController::class, 'store'])->name('order.store');
 
+// Отправка формы заказа
+Route::post('/order/store', [OrderController::class, 'store'])->name('order.store');
+
+// API для обновления и удаления товаров из корзины
+// Route::post('/cart/update', [OrderController::class, 'updateCart']);
+// Route::post('/cart/remove', [OrderController::class, 'removeFromCart']);
+
 require __DIR__ . '/auth.php';
