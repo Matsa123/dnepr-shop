@@ -23,7 +23,7 @@
             <div class="footer-block">
                 <h4>Контакти</h4>
                 <p>Email: info@dneprshop.ua</p>
-                <p>Телефон: +38 (099) 123-45-67</p>
+                <p class="tel">Телефон: +38 (099) 123-45-67</p>
             </div>
         </div>
     </div>

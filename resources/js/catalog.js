@@ -207,7 +207,7 @@ document.addEventListener('DOMContentLoaded', function () {
         const el = document.getElementById('cart-message');
         el.textContent = msg;
         el.style.display = 'block';
-        setTimeout(() => el.style.display = 'none', 3000);
+        setTimeout(() => el.style.display = 'none', 2000);
     }
     document.querySelectorAll('.buy-now-btn').forEach(button => {
         button.addEventListener('click', function (event) {

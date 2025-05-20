@@ -7,9 +7,12 @@ window.Alpine = Alpine;
 Alpine.start();
 document.addEventListener('DOMContentLoaded', () => {
     const burger = document.getElementById('burger');
-    const nav = document.getElementById('mainNav');
+    const mainNav = document.getElementById('mainNav');
 
     burger.addEventListener('click', () => {
-        nav.classList.toggle('active');
+        mainNav.classList.toggle('open');
+    });
+    document.getElementById('toggle-filters-btn').addEventListener('click', function () {
+        document.getElementById('filters-block').classList.toggle('show');
     });
 });

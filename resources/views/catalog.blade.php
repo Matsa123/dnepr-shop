@@ -8,13 +8,16 @@
 
 @section('content')
     <div class="catalog-page">
-        <aside class="filters">
+        <button id="toggle-filters-btn">🔍 Фільтри</button>
+
+        <aside class="filters" id="filters-block">
             @include('partials.catalog-filters')
         </aside>
+
         <main class="products" id="product-list">
             @include('partials.product-list', ['products' => $products])
-
         </main>
+
         @include('partials.product-view')
     </div>
 @endsection

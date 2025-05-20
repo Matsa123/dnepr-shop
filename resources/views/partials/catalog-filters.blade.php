@@ -1,3 +1,4 @@
+<!-- Кнопка для показа/скрытия фильтров -->
 <form id="filter-form" class="filters-form" method="GET" action="{{ route('catalog.filter') }}">
 
     {{-- Бренд --}}
@@ -86,3 +87,4 @@
 
     <button type="button" id="reset-filters">Скинути фільтри</button>
 </form>
+@vite(['resources/css/filters.css'])

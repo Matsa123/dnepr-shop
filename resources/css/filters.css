@@ -1,0 +1,162 @@
+.filters {
+    width: 100%;
+    margin-bottom: 24px;
+    padding: 16px;
+    border-radius: 8px;
+    background-color: #ffffff;
+}
+
+.filters-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Обёртка выпадающего меню */
+.dropdown {
+    position: relative;
+    min-width: 160px;
+    width: 100%;
+    max-width: 200px;
+}
+
+/* Кнопка выпадающего меню */
+.dropdown-btn {
+    background-color: #fff;
+    color: #222;
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.dropdown-btn::after {
+    content: "▾";
+    font-size: 10px;
+    margin-left: 8px;
+    opacity: 0.6;
+}
+
+.dropdown-btn.open::after {
+    transform: rotate(180deg);
+}
+
+.dropdown-btn:hover {
+    border-color: #888;
+    background-color: #f9f9f9;
+}
+
+/* Выпадающее меню */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    z-index: 100;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.06);
+    max-height: 220px;
+    overflow-y: auto;
+}
+
+.dropdown-content.show {
+    display: block;
+}
+
+/* Элемент внутри меню */
+.dropdown-item {
+    padding: 8px 12px;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.dropdown-item:hover {
+    background-color: #f2f2f2;
+}
+
+.dropdown-item[data-value=""] {
+    color: #888;
+}
+
+/* Кнопка сброса */
+#reset-filters {
+    background-color: #f8f8f8;
+    color: #333;
+    padding: 6px 12px;
+    font-size: 13px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+#reset-filters:hover {
+    background-color: #eaeaea;
+}
+
+/* Кнопка показа фильтров на мобилке */
+#toggle-filters-btn {
+    display: none;
+    margin: 16px auto;
+    padding: 8px 14px;
+    border-radius: 6px;
+    color: #222;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+#toggle-filters-btn:hover {
+    background-color: #f7f5f5;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .filters-form {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .dropdown {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    #toggle-filters-btn {
+        display: block;
+    }
+
+    .filters {
+        display: none;
+    }
+
+    .filters.show {
+        display: block;
+        animation: fadeIn 0.2s ease;
+    }
+}
+
+/* Анимация */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
