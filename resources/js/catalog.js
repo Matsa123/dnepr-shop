@@ -111,6 +111,7 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(html => {
                 productList.innerHTML = html;
                 initializeSwipers(); // обновляем слайдеры для новых карточек
+                setupBuyNowButtons();
             })
             .catch(error => {
                 console.error('Помилка під час завантаження:', error);
@@ -201,6 +202,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Инициализация при первом запуске
     initializeSwipers();
+    setupBuyNowButtons();
     function showCartMessage(msg) {
         const el = document.getElementById('cart-message');
         el.textContent = msg;
@@ -240,6 +242,41 @@ document.addEventListener('DOMContentLoaded', function () {
 
         });
     });
+    function setupBuyNowButtons() {
+        document.querySelectorAll('.buy-now-btn').forEach(button => {
+            button.addEventListener('click', function (event) {
+                event.preventDefault();
+
+                const productId = this.getAttribute('data-id');
+                const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+                fetch(window.cartAddUrl, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': csrfToken,
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ product_id: productId })
+                })
+                    .then(res => {
+                        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+                        return res.json();
+                    })
+                    .then(data => {
+                        showCartMessage(data.message);
+                        const cartCountEl = document.getElementById('cart-count');
+                        if (cartCountEl && data.count !== undefined) {
+                            cartCountEl.textContent = data.count;
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Помилка при додаванні товару:', error);
+                        alert('Не вдалося додати товар до корзини.');
+                    });
+
+            });
+        });
+    }
     function setupModalAddToCart() {
         const qtyInput = modalBody.querySelector('#product-quantity');
         const decreaseBtn = modalBody.querySelector('#decrease-qty');

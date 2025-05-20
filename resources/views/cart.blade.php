@@ -2,38 +2,47 @@
 
 @section('content')
     <div class="cart-container main_block">
-        <h2>Ваше замовлення</h2>
+        <h2 class="titlle_">Ваше замовлення</h2>
 
         <div id="cart-content">
             @if(count($cart) > 0)
-                <table class="cart-table">
-                    <thead>
-                        <tr>
-                            <th>Фото</th>
-                            <th>Назва</th>
-                            <th>Ціна</th>
-                            <th>Кількість</th>
-                            <th>Сума</th>
-                            <th>Дії</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($cart as $item)
-                            <tr data-id="{{ $item['id'] }}">
-                                <td><img src="{{ asset('storage/' . $item['image']) }}" width="60"></td>
-                                <td>{{ $item['name'] }}</td>
-                                <td>{{ $item['price'] }} грн</td>
-                                <td>
-                                    <button class="qty-btn decrease">-</button>
+                <div class="cart-header">
+                    <div>Фото</div>
+                    <div>Назва</div>
+                    <div>Ціна</div>
+                    <div>Кількість</div>
+                    <div>Сума</div>
+                    <div>Дії</div>
+                </div>
+
+                <div class="cart-items">
+                    @foreach($cart as $item)
+                        <div class="cart-item" data-id="{{ $item['id'] }}">
+                            <div class="item-image">
+                                <img src="{{ asset('storage/' . $item['image']) }}" width="60" alt="{{ $item['name'] }}">
+                            </div>
+                            <div class="item-name">
+                                {{ $item['name'] }}
+                            </div>
+                            <div class="item-price">
+                                {{ $item['price'] }}  грн
+                            </div>
+                            <div class="item-quantity">
+                                <div class="inc_btn">
+                                    <button type="button" class="qty-btn decrease">-</button>
                                     <span class="quantity">{{ $item['quantity'] }}</span>
-                                    <button class="qty-btn increase">+</button>
-                                </td>
-                                <td><span class="item-total">{{ $item['price'] * $item['quantity'] }}</span> грн</td>
-                                <td><button class="remove-btn">Видалити</button></td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                                    <button type="button" class="qty-btn increase">+</button>
+                                </div>
+                            </div>
+                            <div class="item-total">
+                                <span>{{ $item['price'] * $item['quantity'] }}</span> грн
+                            </div>
+                            <div class="item-remove">
+                                <button type="button" class="remove-btn">Видалити</button>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
 
                 <div class="cart-summary">
                     <p><strong>Загальна сума: </strong> <span id="total-price"></span> грн</p>
@@ -56,7 +65,8 @@
 
                     <button type="submit">Оформити замовлення</button>
                 </form>
-                <p id="empty-cart-message" style="display:none;">Корзина порожня</p>
+
+                <p id="empty-cart-message" style="display: none;">Корзина порожня</p>
             @else
                 <p id="empty-cart-message">Корзина порожня</p>
             @endif
