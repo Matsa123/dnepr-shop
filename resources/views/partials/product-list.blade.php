@@ -25,7 +25,7 @@
                 <h3>{{ $product->name }}</h3>
                 <p>{{ $product->price }} грн</p>
             </div>
-            <a href="#" class="buy-now-btn no-modal" data-id="{{ $product->id }}">Купити зараз</a>
+            <a href="#" class="buy-now-btn no-modal" data-id="{{ $product->id }}">У кошик</a>
         </div>
     </div>
 

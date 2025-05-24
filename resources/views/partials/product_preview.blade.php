@@ -30,5 +30,5 @@
         <button type="button" id="increase-qty" style="width: 30px; height: 30px;">+</button>
     </div>
 
-    <button class="buy-now-modal" data-id="{{ $product->id }}">Купити зараз</button>
+    <button class="buy-now-modal" data-id="{{ $product->id }}">У кошик</button>
 </div>

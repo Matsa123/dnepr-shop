@@ -3,7 +3,7 @@
 @section('title', 'Каталог')
 
 @push('styles')
-    @vite(['resources/css/catalog.css'])
+    @vite(['resources/css/catalog.css','resources/css/product_prew_modal.css'])
 @endpush
 
 @section('content')

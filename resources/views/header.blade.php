@@ -1,7 +1,7 @@
 <header class="site-header">
     <div class="header-container">
         <div class="logo">
-            <a href="/">Dnepr Shop</a>
+            <a href="/"><img src="{{ asset('images/logo.png') }}" alt="VAKULA" style="height: 30px;"></a>
         </div>
         <div class="menu_burger_cart">
             <button class="burger" id="burger">☰</button>

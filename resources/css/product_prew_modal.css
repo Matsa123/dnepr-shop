@@ -1,0 +1,268 @@
+/* ===== КАРТОЧКА ПРОДУКТА В MODAL ===== */
+.product-preview {
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    max-width: 700px;
+    margin: 0 auto;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #222;
+}
+
+.product-preview h2 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    text-align: center;
+    color: #333;
+}
+
+.product-preview p {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin: 10px 0;
+}
+
+.product-preview p strong {
+    color: #000;
+}
+
+/* ===== SWIPER ВНУТРИ КАРТОЧКИ ===== */
+.product-preview .swiper {
+    margin-bottom: 20px;
+    border-radius: 12px;
+    overflow: hidden;
+    max-width: 100%;
+}
+
+.product-preview .swiper-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-preview .swiper-slide img {
+    max-width: 100%;
+    object-fit: contain;
+    border-radius: 12px;
+}
+
+/* ===== НАВИГАЦИЯ SWIPER ===== */
+.swiper-button-prev,
+.swiper-button-next {
+    color: #444;
+    transition: color 0.2s;
+}
+
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+    color: #000;
+}
+
+.swiper-pagination-bullet {
+    background: #ccc;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.swiper-pagination-bullet-active {
+    opacity: 1;
+    background: #333;
+}
+
+/* ===== МОДАЛЬНОЕ ОКНО ===== */
+.modal {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    padding: 20px;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-content {
+    padding: 24px;
+    max-width: 700px;
+    width: 100%;
+    position: relative;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.98); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.close-modal {
+    position: absolute;
+    top: 18px;
+    right: 30px;
+    font-size: 1.8rem;
+    color: #333;
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.close-modal:hover {
+    color: #e63946;
+}
+
+/* ===== СЛАЙДЕР В MODAL ===== */
+.modal-slider {
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto 20px;
+}
+
+.modal-slider .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.modal-slider .swiper-slide img {
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 10px;
+}
+
+/* ===== ИЗОБРАЖЕНИЯ В MODAL ===== */
+.img_modal {
+    width: 100%;
+    max-height: 75vh;
+    margin: 0 auto 1.5rem auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.img_modal img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+}
+
+/* ===== КОЛИЧЕСТВО ТОВАРА ===== */
+.modal-product-quantity,
+.modal-quantity {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.modal-product-quantity button {
+    width: 36px;
+    height: 36px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.modal-product-quantity button:hover {
+    background-color: #ddd;
+}
+
+.modal-product-quantity input,
+.modal-quantity input {
+    width: 60px;
+    height: 36px;
+    text-align: center;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+/* ===== КНОПКИ "КУПИТИ" ===== */
+.modal-buy-btn,
+.buy-now-modal {
+    background-color: #b4f000;
+    color: #000;
+    border: none;
+    padding: 14px 24px;
+    font-size: 1.05rem;
+    font-weight: bold;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+.modal-buy-btn:hover,
+.buy-now-modal:hover {
+    background-color: #a0db00;
+    color: #111;
+}
+
+/* ===== НАВИГАЦИЯ MODAL SWIPER ===== */
+.modal-next,
+.modal-prev {
+    width: 28px !important;
+    height: 28px !important;
+}
+
+.modal-next::after,
+.modal-prev::after {
+    color: #fff !important;
+    font-size: 22px !important;
+}
+
+.modal-pagination .swiper-pagination-bullet {
+    background-color: #fff !important;
+    opacity: 0.5;
+    transition: opacity 0.3s ease;
+}
+
+.modal-pagination .swiper-pagination-bullet-active {
+    opacity: 1;
+}
+@media (max-height: 800px) {
+    .swiper {
+        height: 50vh;
+    }
+}
+/* ===== АДАПТИВНОСТЬ ===== */
+@media (max-width: 600px) {
+    .swiper {
+        height: auto;
+    }
+    .product-preview {
+        padding: 16px;
+    }
+
+    .product-preview h2 {
+        font-size: 1.2rem;
+    }
+
+    .product-preview .swiper-slide img,
+    .modal-slider .swiper-slide img,
+    .img_modal img {
+        max-height: 60vh;
+    }
+
+    .modal-content {
+        padding: 16px;
+    }
+
+    .modal-buy-btn,
+    .buy-now-modal {
+        font-size: 0.95rem;
+    }
+}

@@ -176,7 +176,9 @@ a.active {
         top: 80px;
         right: 45px; 
     }
-
+    .logo {
+        align-self: center;
+    }
     .main-nav {
         position: fixed;
         top: 60px;

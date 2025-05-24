@@ -15,6 +15,7 @@ export default defineConfig({
                 'resources/js/modal_slider.js',
                 'resources/js/cart.js',
                 'resources/css/filters.css',
+                'resources/css/product_prew_modal.css',
             ],
             refresh: true,
         }),
