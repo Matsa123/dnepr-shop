@@ -82,3 +82,19 @@
     background-color: rgba(100, 116, 139, 0.3);
     border-radius: 6px;
 }
+@media (max-width: 1050px) {
+    .product-type-title {
+        display: none;
+    }
+    .product-list {
+      display: none;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+  
+    /* При наведении на sidebar или кнопку список показываем */
+    .sidebar:hover .product-list,
+    .new-product-button:hover + .product-list {
+      display: block;
+    }
+  }

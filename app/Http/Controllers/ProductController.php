@@ -27,9 +27,13 @@ class ProductController extends Controller
             }
         }
 
+        // Группируем товары по полю type
+        $productsByType = Product::all(['id', 'name', 'type'])
+            ->groupBy('type');
+
         return view('manage', [
             'product' => $product,
-            'allProducts' => Product::all(['id', 'name']),
+            'productsByType' => $productsByType,
             'brands' => Product::distinct()->pluck('brand')->filter()->unique(),
             'colors' => Product::distinct()->pluck('color')->filter()->unique(),
             'types' => Product::distinct()->pluck('type')->filter()->unique(),
@@ -53,6 +57,7 @@ class ProductController extends Controller
             'type_custom' => 'nullable|string',
             'type' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+            'images' => 'nullable|array',
             'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ]);
 
@@ -66,7 +71,6 @@ class ProductController extends Controller
         $data['shoe_sizes'] = $data['shoe_sizes'] ?? [];
 
 
-
         if ($request->hasFile('image')) {
             $data['image'] = $request->file('image')->store('products', 'public');
         }
@@ -74,16 +78,14 @@ class ProductController extends Controller
         $product = Product::create($data);
 
         if ($request->hasFile('images')) {
-            foreach ($request->file('images') as $uploadedImage) {
-                $path = $uploadedImage->store('products', 'public');
-
+            foreach ($request->file('images') as $image) {
+                $path = $image->store('products', 'public');
                 ProductImage::create([
                     'product_id' => $product->id,
-                    'image' => $path, // <== вот это поле обязательно!
+                    'image' => $path,
                 ]);
             }
         }
-
         return redirect()->route('manage', ['id' => $product->id])
             ->with('success', 'Товар добавлен');
     }
@@ -117,7 +119,6 @@ class ProductController extends Controller
         $data['clothing_sizes'] = $data['clothing_sizes'] ?? [];
         $data['shoe_sizes'] = $data['shoe_sizes'] ?? [];
 
-
         if ($request->hasFile('image')) {
             if ($product->image) {
                 Storage::disk('public')->delete($product->image);
@@ -140,7 +141,6 @@ class ProductController extends Controller
         return redirect()->route('manage', ['id' => $product->id])
             ->with('success', 'Товар оновлено');
     }
-
     public function destroy($id)
     {
         $product = Product::findOrFail($id);

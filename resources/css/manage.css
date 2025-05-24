@@ -14,6 +14,17 @@
     width: 70vw;
 }
 
+.main-image-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.new_product_btn {
+    margin-bottom: 20px;
+}
+
 /* Обёртка формы */
 .product-form-wrapper {
     flex-grow: 1;
@@ -29,18 +40,153 @@
 
 /* Заголовок формы */
 .product-form-title {
+    text-align: center;
     font-size: 1.8rem;
     font-weight: 700;
     color: #111827;
     margin-bottom: 30px;
 }
 
+@media (max-width: 450px) {
+    .product-form-title {
+        font-size: 2vh;
+    }
+}
+
+.manage_photo_btn {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 10px;
+}
+
+.photo-upload-label {
+    display: block;
+    padding: 20px;
+    border: 2px dashed #ccc;
+    border-radius: 16px;
+    text-align: center;
+    font-weight: bold;
+    color: #555;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.photo-upload-label:hover {
+    border-color: #007bff;
+    background-color: #eef6ff;
+    color: #007bff;
+}
+
+.photo-upload-input {
+    display: none;
+}
+
+.image-preview {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    min-height: 80px;
+}
+
+
+.image-preview img {
+    max-width: 100px;
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    object-fit: cover;
+}
+
 /* Метки полей */
 .product-form label {
     display: block;
-    margin-bottom: 18px;
     font-size: 0.95rem;
     color: #374151;
+}
+
+#shoe_sizes_block {
+    margin-top: 10px;
+}
+
+#shoe_sizes_block label {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 12px;
+    cursor: pointer;
+    font-weight: 500;
+}
+
+#shoe_sizes_block input[type="checkbox"] {
+    /* Скрываем стандартный чекбокс */
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #000;
+    border-radius: 3px;
+    margin-right: 6px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+}
+
+#shoe_sizes_block input[type="checkbox"]:checked {
+    background-color: #000;
+    border-color: #000;
+}
+
+#shoe_sizes_block input[type="checkbox"]:checked::after {
+    content: "";
+    position: absolute;
+    left: 6px;
+    top: 2px;
+    width: 6px;
+    height: 12px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.size-checkboxes {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 5px;
+}
+
+.size-box {
+    position: relative;
+    cursor: pointer;
+}
+
+.size-box input[type="checkbox"] {
+    display: none;
+}
+
+.size-box span {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: black;
+    color: white;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+    user-select: none;
+}
+
+.size-box input[type="checkbox"]:checked+span {
+    background-color: white;
+    color: black;
+    border: 2px solid black;
 }
 
 /* Поля ввода */
@@ -67,16 +213,13 @@
     outline: none;
 }
 
-/* Отступ между полями */
-.input_marg {
-    margin-bottom: 20px;
-}
+
 
 /* Стилизация кнопки загрузки файла */
 .custom-file-label {
-    display: inline-block;
     padding: 0.6rem 1.2rem;
-    background-color: #6366f1;
+    text-align: center;
+    background-color: #bff3ec;
     color: white;
     cursor: pointer;
     border-radius: 8px;
@@ -85,7 +228,7 @@
 }
 
 .custom-file-label:hover {
-    background-color: #4f46e5;
+    background-color: #2ac89c;
 }
 
 /* Скрытый input file */
@@ -105,6 +248,8 @@
 /* Сетка миниатюр */
 .image-thumbnails {
     display: flex;
+    justify-content: center;
+    align-items: center;
     flex-wrap: wrap;
     gap: 16px;
     margin-top: 16px;
@@ -137,7 +282,7 @@
 }
 
 .btn-delete-image {
-    background-color: #ef4444;
+    background-color: #ee6a6a;
     color: white;
     border: none;
     padding: 0.3rem 0.6rem;
@@ -153,9 +298,10 @@
 
 /* Кнопка отправки формы */
 .btn-submit {
+    margin-top: 20px;
     padding: 14px 28px;
-    background-color: #3b82f6;
-    color: white;
+    background-color: #bff3ec;
+    color: rgb(84, 84, 84);
     border: none;
     border-radius: 14px;
     font-size: 1rem;
@@ -165,7 +311,37 @@
 }
 
 .btn-submit:hover {
-    background-color: #2563eb;
+    background-color: #2ac89c;
+}
+
+.btn-delete {
+    margin-top: 10px;
+    margin-left: 10px;
+    padding: 6px 12px;
+    border: 1px solid #dc2626;
+    border-radius: 4px;
+    background-color: transparent;
+    color: #dc2626;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-delete:hover {
+    background-color: #dc2626;
+    color: #fff;
+}
+
+.logout-form {
+    display: flex;
+    justify-content: center;
+}
+
+.logout-button {
+    align-self: center;
+    margin-top: 40px;
+    font-weight: bold;
+    color: #374151;
 }
 
 /* Адаптивность */
@@ -174,10 +350,18 @@
         flex-direction: column;
         align-items: center;
     }
+
     .redact_all {
         width: 100%;
     }
+
     .product-form-wrapper {
         padding: 30px;
+    }
+}
+
+@media (max-width: 550px) {
+    .manage_photo_btn {
+        flex-direction: column;
     }
 }
