@@ -1,44 +1,103 @@
 
-window.previewMainImage = function (event) {
+window.uploadMainImage = function (event) {
     const input = event.target;
-    const preview = document.getElementById('main-image-preview');
+    const file = input.files[0];
+    const productId = document.querySelector('meta[name="product-id"]').getAttribute('content');
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-    if (input.files && input.files[0]) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-            preview.src = e.target.result;
-            preview.style.display = 'block';
-        };
-        reader.readAsDataURL(input.files[0]);
-    } else {
-        preview.style.display = 'none';
-        preview.src = '';
-    }
-}
+    if (!file || !productId) return;
+
+    const formData = new FormData();
+    formData.append('image', file);
+    formData.append('_token', csrfToken);
+
+    fetch(`/product-images/upload-main/${productId}`, {
+        method: 'POST',
+        body: formData
+    })
+        .then(response => {
+            if (!response.ok) throw new Error('Ошибка сервера: ' + response.status);
+            return response.json();
+        })
+        .then(data => {
+            // Заменить текущее изображение
+            let wrapper = document.querySelector('.main-image-wrapper');
+
+            if (!wrapper) {
+                wrapper = document.createElement('div');
+                wrapper.className = 'main-image-wrapper';
+                document.querySelector('.product-form').insertAdjacentElement('beforebegin', wrapper);
+            }
+
+            wrapper.innerHTML = `
+            <img src="${data.url}" alt="Главное фото" class="preview-image">
+            <form action="/product-main-image/delete/${productId}" method="POST"
+                onsubmit="return confirm('Удалить главное изображение?')">
+                <input type="hidden" name="_token" value="${csrfToken}">
+                <input type="hidden" name="_method" value="DELETE">
+                <button type="submit" class="btn-delete-image">Удалить главное изображение</button>
+            </form>
+        `;
+        })
+        .catch(error => {
+            console.error('Ошибка при загрузке главной фотографии:', error);
+            alert('Не удалось загрузить главное изображение.');
+        });
+
+    input.value = '';
+};
 window.previewImages = function (event) {
+    uploadAdditionalImage(event);
+}
+
+function uploadAdditionalImage(event) {
     const input = event.target;
     const files = input.files;
+    const productId = document.querySelector('meta[name="product-id"]').getAttribute('content');
 
-    const container = document.querySelector('.image-thumbnails');
-    container.innerHTML = ''; // очищаем старые превью
+    console.log('Загрузка файлов:', files);
+    console.log('productId:', productId);
+
+    if (!files.length || !productId) return;
+
+    const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
     Array.from(files).forEach(file => {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-            const img = document.createElement('img');
-            img.src = e.target.result;
-            img.className = 'thumbnail';
+        const formData = new FormData();
+        formData.append('image', file);
+        formData.append('_token', csrfToken);
 
-            const wrapper = document.createElement('div');
-            wrapper.className = 'thumbnail-wrapper';
-            wrapper.appendChild(img);
+        fetch(`/product-images/upload/${productId}`, {
+            method: 'POST',
+            body: formData,
+        })
+            .then(response => {
+                if (!response.ok) throw new Error('Ошибка сервера: ' + response.status);
+                return response.json();
+            })
+            .then(data => {
+                const container = document.querySelector('.image-thumbnails');
+                const wrapper = document.createElement('div');
+                wrapper.className = 'thumbnail-wrapper';
 
-            container.appendChild(wrapper);
-        };
-        reader.readAsDataURL(file);
+                wrapper.innerHTML = `
+                <img src="${data.url}" alt="image" class="thumbnail">
+                <form action="/product-images/${data.id}" method="POST" onsubmit="return confirm('Удалить это изображение?')">
+                    <input type="hidden" name="_token" value="${csrfToken}">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <button type="submit" class="btn-delete-image">Удалить доп. фото</button>
+                </form>
+            `;
+                container.appendChild(wrapper);
+            })
+            .catch(error => {
+                console.error('Ошибка при загрузке изображения:', error);
+                alert('Не удалось загрузить изображение.');
+            });
     });
-}
 
+    input.value = '';
+}
 document.addEventListener('DOMContentLoaded', function () {
     const brandSelect = document.getElementById('brand_select');
     const brandCustom = document.getElementById('brand_custom');

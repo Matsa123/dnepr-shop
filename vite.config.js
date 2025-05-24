@@ -16,6 +16,7 @@ export default defineConfig({
                 'resources/js/cart.js',
                 'resources/css/filters.css',
                 'resources/css/product_prew_modal.css',
+                'resources/css/manage_aside.css',
             ],
             refresh: true,
         }),

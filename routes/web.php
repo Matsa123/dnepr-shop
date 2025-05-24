@@ -41,7 +41,9 @@ Route::post('/order', [OrderController::class, 'store'])->name('order.store');
 
 // Отправка формы заказа
 Route::post('/order/store', [OrderController::class, 'store'])->name('order.store');
-
+Route::post('/product-images/upload/{product}', [ProductImageController::class, 'upload'])->name('product_images.upload');
+Route::post('/product-images/upload-main/{id}', [ProductImageController::class, 'uploadMain']);
+Route::delete('/product-main-image/delete/{id}', [ProductImageController::class, 'deleteMain'])->name('product_main_image.delete');
 // API для обновления и удаления товаров из корзины
 // Route::post('/cart/update', [OrderController::class, 'updateCart']);
 // Route::post('/cart/remove', [OrderController::class, 'removeFromCart']);

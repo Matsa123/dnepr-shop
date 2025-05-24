@@ -16,24 +16,65 @@
                 </li>
             </ul>
         </aside>
-
         <!-- Основная форма редактирования товара -->
         <div class="redact_all">
             <div class="product-form-wrapper">
                 <h2 class="product-form-title">
                     {{ isset($product) ? 'Редактировать товар' : 'Добавить товар' }}
                 </h2>
-
+                {{-- Показываем уже загруженные изображения и даём возможность удалить --}}
+                @if(isset($product))
+                    <div class="image-thumbnails" style="margin-top: 1rem;">
+                        @foreach($product->images as $img)
+                            <div class="thumbnail-wrapper">
+                                <img src="{{ asset('storage/' . $img->image) }}" alt="image" class="thumbnail">
+                                <form action="{{ route('product_images.destroy', $img->id) }}" method="POST"
+                                    onsubmit="return confirm('Удалить это изображение?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn-delete-image">Удалить доп. фото</button>
+                                </form>
+                            </div>
+                        @endforeach
+                    </div>
+                @endif
+                @if(isset($product) && $product->image)
+                    <div class="main-image-wrapper">
+                        <img src="{{ asset('storage/' . $product->image) }}" alt="Главное фото" class="preview-image">
+                        <form action="{{ route('product_main_image.delete', $product->id) }}" method="POST"
+                            onsubmit="return confirm('Удалить главное изображение?')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn-delete-image">Удалить главное изображение</button>
+                        </form>
+                    </div>
+                @endif
                 <form action="{{ isset($product) ? route('products.update', $product->id) : route('products.store') }}"
                     method="POST" enctype="multipart/form-data" class="product-form">
                     @csrf
                     @if(isset($product))
                         @method('PUT')
                     @endif
-
                     <label>
-                        Название:
-                        <input type="text" name="name" value="{{ old('name', $product->name ?? '') }}" required>
+                        Главная фотография:
+                        <label class="custom-file-label">
+                            {{ isset($product) && $product->image ? 'Изменить главную фотографию' : 'Добавить главную фотографию' }}
+                            <input type="file" name="image" class="custom-file-input" onchange="uploadMainImage(event)">
+                        </label>
+                        <img id="main-image-preview" class="preview-image"
+                            style="display:none; max-width: 150px; margin-top: 10px;" />
+                    </label>
+
+                    <div class="form-group input_marg">
+                        <label for="images">Дополнительные изображения:</label>
+                        <label class="custom-file-label" for="images">
+                            Добавить еще фото
+                        </label>
+                        <input type="file" id="images" class="custom-file-input" name="images[]" multiple
+                            onchange="previewImages(event)">
+                    </div>
+                    Название:
+                    <input type="text" name="name" value="{{ old('name', $product->name ?? '') }}" required>
                     </label>
 
                     <label>
@@ -139,64 +180,10 @@
                         Цена:
                         <input type="number" name="price" value="{{ old('price', $product->price ?? '') }}" required>
                     </label>
-
-                    <label>
-                        Главная фотография:
-                        <label class="custom-file-label">
-                            Изменить главное фото
-                            <input type="file" name="image" class="custom-file-input" onchange="previewMainImage(event)">
-                        </label>
-                        <img id="main-image-preview" class="preview-image"
-                            style="display:none; max-width: 150px; margin-top: 10px;" />
-
-                        @if(isset($product) && $product->image)
-                            <img src="{{ asset('storage/' . $product->image) }}" alt="Главное фото" class="preview-image">
-                        @endif
-                    </label>
-
-                    <div class="form-group input_marg">
-                        <label for="images">Дополнительные изображения:</label>
-                        <label class="custom-file-label">
-                            Добавить еще фото
-                            <input type="file" id="images" class="custom-file-input" name="images[]" multiple
-                                onchange="previewImages(event)">
-                        </label>
-
-                        <div class="image-thumbnails" style="display: flex; flex-wrap: wrap; gap: 10px;"></div>
-                    </div>
-
                     <button type="submit" class="btn-submit">
                         {{ isset($product) ? 'Сохранить изменения' : 'Добавить товар' }}
                     </button>
-
                 </form>
-
-                @if(isset($product) && $product->image)
-                    <div style="margin-top: 1rem;">
-                        <form action="{{ route('product_main_image.delete', $product->id) }}" method="POST"
-                            onsubmit="return confirm('Удалить главное изображение?')">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn-delete-image">Удалить главное изображение</button>
-                        </form>
-                    </div>
-                @endif
-                {{-- Показываем уже загруженные изображения и даём возможность удалить --}}
-                @if(isset($product))
-                    <div class="image-thumbnails" style="margin-top: 1rem;">
-                        @foreach($product->images as $img)
-                            <div class="thumbnail-wrapper">
-                                <img src="{{ asset('storage/' . $img->image) }}" alt="image" class="thumbnail">
-                                <form action="{{ route('product_images.destroy', $img->id) }}" method="POST"
-                                    onsubmit="return confirm('Удалить это изображение?')">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn-delete-image">Удалить доп. фото</button>
-                                </form>
-                            </div>
-                        @endforeach
-                    </div>
-                @endif
                 @if(isset($product))
                     <form action="{{ route('products.destroy', $product->id) }}" method="POST" class="delete-product-form"
                         onsubmit="return confirm('Удалить этот товар?');" style="margin-top: 1rem;">
@@ -206,7 +193,6 @@
                     </form>
                 @endif
             </div>
-
             <form method="POST" class="logout-form" action="{{ route('logout') }}">
                 @csrf
                 <button type="submit" class="logout-button">Выйти из редактирования</button>
@@ -215,4 +201,4 @@
     </div>
 @endsection
 
-@vite(['resources/css/manage.css', 'resources/js/brand.js'])
+@vite(['resources/css/manage.css', 'resources/js/brand.js', 'resources/css/manage_aside.css'])
