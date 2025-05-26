@@ -14,6 +14,11 @@ document.addEventListener('DOMContentLoaded', () => {
         burger.addEventListener('click', () => {
             mainNav.classList.toggle('open');
         });
+
+        // Скрытие меню при уходе курсора
+        mainNav.addEventListener('mouseleave', () => {
+            mainNav.classList.remove('open');
+        });
     }
 
     const toggleFiltersBtn = document.getElementById('toggle-filters-btn');

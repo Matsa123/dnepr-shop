@@ -6,29 +6,28 @@
     border-radius: 20px;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
     height: fit-content;
+    border: #d8d6d6 solid 1px;
 }
 
 .sidebar h3 {
     font-size: 1.4rem;
     font-weight: 700;
     margin-bottom: 24px;
-    color: #1e293b;
+    color: #66797a;
 }
 
-.product-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+.product-type-title {
+    font-size: 18px;
+    font-weight: bold;
 }
-
 .product-list li {
     margin-bottom: 12px;
 }
 
 .product-list li a {
     display: block;
-    padding: 12px 18px;
-    border-radius: 12px;
+    padding: 4px 5px;
+    border-radius: 2px;
     text-decoration: none;
     color: #1f2937;
     background-color: #ffffff;
@@ -64,14 +63,19 @@
 .new-product-button:hover {
     background-color: #0284c7;
 }
+
 .product-list {
     list-style: none;
     padding: 0;
     margin: 0;
-    font-size: 0.85rem; /* мелкий шрифт */
-    max-height: 400px;   /* ограниченная высота */
-    overflow-y: auto;    /* вертикальная прокрутка */
-    scrollbar-width: thin; /* для Firefox */
+    font-size: 0.85rem;
+    /* мелкий шрифт */
+    max-height: 400px;
+    /* ограниченная высота */
+    overflow-y: auto;
+    /* вертикальная прокрутка */
+    scrollbar-width: thin;
+    /* для Firefox */
 }
 
 .product-list::-webkit-scrollbar {
@@ -82,19 +86,18 @@
     background-color: rgba(100, 116, 139, 0.3);
     border-radius: 6px;
 }
-@media (max-width: 1050px) {
-    .product-type-title {
-        display: none;
+
+@media (max-width: 1015px) {
+    .list_block {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+
     }
-    .product-list {
-      display: none;
-      max-height: 400px;
-      overflow-y: auto;
+    .sidebar {
+        align-self: self-start;
+        width: 100%;
     }
-  
-    /* При наведении на sidebar или кнопку список показываем */
-    .sidebar:hover .product-list,
-    .new-product-button:hover + .product-list {
-      display: block;
-    }
-  }
+
+}

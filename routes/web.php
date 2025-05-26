@@ -7,6 +7,7 @@ use App\Http\Controllers\ContactsController;
 use App\Http\Controllers\ProductImageController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\DeliveryController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -28,6 +29,7 @@ Route::get('/catalog/filter', [CatalogController::class, 'filter'])->name('catal
 
 Route::get('/about_us', [AboutUsController::class, 'about_us'])->name('about_us');
 Route::get('/contacts', [ContactsController::class, 'contacts'])->name('contacts');
+Route::get('/delivery', [DeliveryController::class, 'delivery'])->name('delivery');
 
 Route::get('/product/preview/{id}', [ProductController::class, 'preview']);
 // routes/web.php

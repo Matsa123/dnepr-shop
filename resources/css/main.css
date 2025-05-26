@@ -1,5 +1,238 @@
-
 .main_container {
-   display: flex;
-   flex-direction: column;
+  display: flex;
+  flex-direction: column;
+}
+
+.video-slider-wrapper {
+  position: relative;
+}
+
+.video-swiper {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.video-swiper video {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 10px;
+  background: #000;
+  filter: brightness(0.7);
+  pointer-events: none !important;
+  z-index: 1;
+  opacity: 0;
+  animation: fadeInUp 1s ease forwards;
+  animation-delay: 0.3s;
+}
+
+.video-swiper .swiper-slide-active video {
+  animation: fadeInUp 1s ease forwards;
+}
+
+.slide-text {
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  transform: translateY(-50%);
+  color: white;
+  max-width: 400px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+  z-index: 10;
+}
+
+.slide-text h2 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.slide-text p {
+  font-size: 1.2rem;
+  margin-bottom: 1.2rem;
+}
+
+.btn-primary {
+  display: inline-block;
+  padding: 0.8rem 1.5rem;
+  background: #c3e889;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 5px;
+  transition: background 0.3s ease;
+  position: relative;
+  z-index: 20;
+}
+
+.btn-primary:hover {
+  background: #a1dd0a;
+}
+
+/* Цвет стрелок навигации */
+.swiper-button-next,
+.swiper-button-prev {
+  color: #f9f8f8 !important;
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  transform: scaleY(1.4);
+}
+
+.swiper-button-next::after,
+.swiper-button-prev::after {
+  font-size: 16px !important;
+}
+
+/* Цвет точек пагинации */
+.swiper-pagination-bullet {
+  background-color: #b2b0b0 !important;
+  opacity: 1 !important;
+}
+
+.swiper-pagination-bullet-active {
+  background-color: #ffffff !important;
+}
+
+/* Цитата */
+.quote-text {
+  max-width: 800px;
+  margin: 20px auto 40px;
+  font-size: 1.3rem;
+  color: #333;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+}
+
+.quote-text.visible {
+  opacity: 1;
+}
+
+/* Галерея изображений */
+.image-gallery img {
+  width: 30%;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  opacity: 0;
+  animation: fadeInUp 1s ease forwards;
+}
+
+/* Задержка анимации для разных картинок */
+.image-gallery img:nth-child(1) {
+  animation-delay: 0.3s;
+}
+
+.image-gallery img:nth-child(2) {
+  animation-delay: 0.5s;
+}
+
+.image-gallery img:nth-child(3) {
+  animation-delay: 0.7s;
+}
+
+/* Анимация появления */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.video-slider-wrapper {
+  position: relative;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.video-swiper video {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 10px;
+  background: #000;
+  filter: brightness(0.6);
+  pointer-events: none !important;
+  z-index: 1;
+  opacity: 1; /* показываем видео */
+}
+
+.slide-text {
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  transform: translateY(-50%);
+  color: white;
+  max-width: 400px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7);
+  z-index: 10;
+  pointer-events: auto; /* чтобы кнопки и ссылки кликабельны были */
+}
+
+/* Адаптив для экранов до 480px */
+@media (max-width: 480px) {
+  .slide-text {
+    left: 5%;
+    max-width: 90%;
+    top: 40%;
+  }
+
+  .slide-text h2 {
+    font-size: 1.6rem;
+  }
+
+  .slide-text p {
+    font-size: 1rem;
+  }
+
+  .btn-primary {
+    padding: 0.6rem 1rem;
+    font-size: 1rem;
+  }
+}
+
+/* Адаптив для экранов до 320px */
+@media (max-width: 320px) {
+  .slide-text {
+    top: 35%;
+    left: 5%;
+    max-width: 90%;
+  }
+
+  .slide-text h2 {
+    font-size: 1.3rem;
+  }
+
+  .slide-text p {
+    font-size: 0.9rem;
+  }
+
+  .btn-primary {
+    padding: 0.5rem 0.8rem;
+    font-size: 0.9rem;
+  }
+}
+@keyframes fadeInUp {
+  from {
+      opacity: 0;
+      transform: translateY(30px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+.slide-text h2,
+.slide-text p,
+.slide-text a,
+#video-quote {
+  animation: fadeInUp 1s ease forwards;
+  opacity: 0;
 }

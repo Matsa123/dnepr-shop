@@ -6,7 +6,17 @@ document.addEventListener('DOMContentLoaded', function () {
     const modal = document.getElementById('product-modal');
     const modalBody = document.getElementById('modal-body');
     const closeBtn = document.querySelector('.close-modal');
+    const cards = document.querySelectorAll('.product-card');
 
+    function animateProductCards() {
+        const cards = document.querySelectorAll('.product-card');
+        cards.forEach((card, i) => {
+            setTimeout(() => {
+                card.classList.add('visible');
+            }, i * 150); // задержка между появлением карточек
+        });
+    }
+    animateProductCards();
     // Инициализация всех Swiper-слайдеров в карточках (если ещё не инициализированы)
     function initializeSwipers() {
         document.querySelectorAll('.product-swiper').forEach(el => {
@@ -112,6 +122,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 productList.innerHTML = html;
                 initializeSwipers(); // обновляем слайдеры для новых карточек
                 setupBuyNowButtons();
+                animateProductCards();
             })
             .catch(error => {
                 console.error('Помилка під час завантаження:', error);
@@ -237,7 +248,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 })
                 .catch(error => {
                     console.error('Помилка при додаванні товару:', error);
-                    alert('Не вдалося додати товар до корзини.');
+                    alert('Не вдалося додати товар до кошика.');
                 });
 
         });
@@ -271,7 +282,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     })
                     .catch(error => {
                         console.error('Помилка при додаванні товару:', error);
-                        alert('Не вдалося додати товар до корзини.');
+                        alert('Не вдалося додати товар до кошика.');
                     });
 
             });
@@ -299,7 +310,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const productId = buyBtn.getAttribute('data-id');
             const quantity = parseInt(qtyInput.value) || 1;
 
-            console.log('Отправляем quantity:', quantity); // для отладки
+            console.log('Відсилаємо quantity:', quantity); // для отладки
 
             const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
@@ -325,8 +336,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     modal.classList.add('hidden');
                 })
                 .catch(err => {
-                    console.error('Помилка при додаванні в корзину:', err);
-                    alert('Не вдалося додати товар до корзини.');
+                    console.error('Помилка при додаванні у кошик:', err);
+                    alert('Не вдалося додати товар до кошика.');
                 });
         });
     }

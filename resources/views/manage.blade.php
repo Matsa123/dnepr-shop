@@ -2,39 +2,41 @@
 
 @section('content')
     <div class="manage-container">
-        <!-- Боковая панель со списком товаров -->
-        <aside class="sidebar">
-            <h3>Все товары</h3>
-            <div class="new_product_btn">
-                <a href="{{ route('manage') }}" class="new-product-button">+ Новый товар</a>
-            </div>
+        <!-- Бокова панель зі списком товарів -->
+        <aside class="sidebar" id="sidebar">
 
-            @foreach($productsByType as $type => $products)
-                <h4 class="product-type-title">{{ $type ?: 'Без типа' }}</h4>
-                <ul class="product-list">
-                    @foreach($products as $p)
-                        <li class="{{ isset($product) && $product->id === $p->id ? 'active' : '' }}">
-                            <a href="{{ route('manage', ['id' => $p->id]) }}">{{ $p->name }}</a>
-                        </li>
-                    @endforeach
-                </ul>
-            @endforeach
+            <h3>Всі товари</h3>
+            <div class="list_block">
+                @foreach($productsByType as $type => $products)
+                    <h4 class="product-type-title">{{ $type ?: 'Без типу' }}</h4>
+                    <ul class="product-list">
+                        @foreach($products as $p)
+                            <li class="{{ isset($product) && $product->id === $p->id ? 'active' : '' }}">
+                                <a href="{{ route('manage', ['id' => $p->id]) }}">{{ $p->name }}</a>
+                            </li>
+                        @endforeach
+                    </ul>
+                @endforeach
+            </div>
+            <div class="new_product_btn">
+                <a href="{{ route('manage') }}" class="new-product-button">+ Новий товар</a>
+            </div>
         </aside>
-        <!-- Основная форма редактирования товара -->
+        <!-- Основна форма редагування товару -->
         <div class="redact_all">
             <div class="product-form-wrapper">
                 <h2 class="product-form-title">
-                    {{ isset($product) ? 'Редактировать товар' : 'Добавить товар' }}
+                    {{ isset($product) ? 'Редагувати товар' : 'Додати товар' }}
                 </h2>
-                {{-- Показываем уже загруженные изображения и даём возможность удалить --}}
+                {{-- Показуємо вже завантажені зображення і даємо можливість видалити --}}
                 @if(isset($product) && $product->image)
                     <div class="main-image-wrapper">
-                        <img src="{{ asset('storage/' . $product->image) }}" alt="Главное фото" class="preview-image">
+                        <img src="{{ asset('storage/' . $product->image) }}" alt="Головне фото" class="preview-image">
                         <form action="{{ route('product_main_image.delete', $product->id) }}" method="POST"
-                            onsubmit="return confirm('Удалить главное изображение?')">
+                            onsubmit="return confirm('Видалити головне зображення?')">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn-delete-image">Удалить главное изображение</button>
+                            <button type="submit" class="btn-delete-image">Видалити головне зображення</button>
                         </form>
                     </div>
                 @endif
@@ -44,10 +46,10 @@
                             <div class="thumbnail-wrapper">
                                 <img src="{{ asset('storage/' . $img->image) }}" alt="image" class="thumbnail">
                                 <form action="{{ route('product_images.destroy', $img->id) }}" method="POST"
-                                    onsubmit="return confirm('Удалить это изображение?')">
+                                    onsubmit="return confirm('Видалити це зображення?')">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn-delete-image">Удалить доп. фото</button>
+                                    <button type="submit" class="btn-delete-image">Видалити дод. фото</button>
                                 </form>
                             </div>
                         @endforeach
@@ -61,57 +63,57 @@
                         @method('PUT')
                     @endif
                     <div class="manage_photo_btn">
-                        <!-- Главное фото -->
+                        <!-- Головне фото -->
                         <label class="custom-file-label">
-                            {{ isset($product) && $product->image ? 'Изменить главную фотографию' : 'Добавить главную фотографию' }}
+                            {{ isset($product) && $product->image ? 'Змінити головне фото' : 'Додати головне фото' }}
                             <input type="file" name="image" class="custom-file-input" onchange="uploadMainImage(event)">
                         </label>
 
                         @unless(isset($product) && $product->image)
-                            <!-- Превью главного фото (только если товар не существует) -->
+                            <!-- Прев’ю головного фото (тільки якщо товар не існує) -->
                             <div id="main-image-preview" class="image-preview"></div>
                         @endunless
 
-                        <!-- Дополнительные фото -->
+                        <!-- Додаткові фото -->
                         <div class="form-group input_marg">
                             <label class="custom-file-label" for="images">
-                                Добавить еще фото
+                                Додати ще фото
                             </label>
                             <input type="file" id="images" class="custom-file-input" name="images[]" multiple
                                 onchange="previewImages(event)">
                         </div>
 
                         @unless(isset($product))
-                            <!-- Превью дополнительных фото (только если товар не существует) -->
+                            <!-- Прев’ю додаткових фото (тільки якщо товар не існує) -->
                             <div id="additional-images-preview" class="image-preview"></div>
                         @endunless
                     </div>
                     <input type="hidden" id="additional_images_data" name="additional_images_data" value="[]">
                     <label>
-                        Название:
+                        Назва:
                         <input type="text" name="name" value="{{ old('name', $product->name ?? '') }}" required>
                     </label>
 
                     <label>
-                        Описание:
+                        Опис:
                         <textarea name="description">{{ old('description', $product->description ?? '') }}</textarea>
                     </label>
 
                     <label>
                         Бренд:
                         <select name="brand_select" id="brand_select" onchange="syncBrand()">
-                            <option value="">Выберите бренд</option>
+                            <option value="">Оберіть бренд</option>
                             @foreach($brands as $brand)
                                 <option value="{{ $brand }}" {{ (old('brand', $product->brand ?? '') === $brand) ? 'selected' : '' }}>{{ $brand }}
                                 </option>
                             @endforeach
-                            <option value="custom">+ Новый бренд</option>
+                            <option value="custom">+ Новий бренд</option>
                         </select>
 
-                        <input type="text" name="brand_custom" id="brand_custom" placeholder="Введите бренд"
+                        <input type="text" name="brand_custom" id="brand_custom" placeholder="Введіть бренд"
                             value="{{ old('brand', $product->brand ?? '') }}" style="display: none;" oninput="syncBrand()">
 
-                        <!-- Скрытое поле, которое будет отправляться -->
+                        <!-- Приховане поле, яке буде відправлятися -->
                         <input type="hidden" name="brand" id="brand_final"
                             value="{{ old('brand', $product->brand ?? '') }}">
                     </label>
@@ -144,10 +146,10 @@
                             @endfor
                         </div>
                     </div>
-                    {{-- Пол --}}
-                    <label for="gender">Пол:</label>
+                    {{-- Стать --}}
+                    <label for="gender">Стать:</label>
                     <select name="gender" id="gender">
-                        <option value="">Выберите</option>
+                        <option value="">Оберіть</option>
                         <option value="Чоловіча" {{ old('gender', $product->gender ?? '') === 'Чоловіча' ? 'selected' : '' }}>
                             Чоловіча</option>
                         <option value="Жіноча" {{ old('gender', $product->gender ?? '') === 'Жіноча' ? 'selected' : '' }}>
@@ -156,7 +158,7 @@
                             Дитяча</option>
                     </select>
 
-                    {{-- Размеры --}}
+                    {{-- Розміри --}}
                     <p class="form-label">Розміри одягу:</p>
                     <div class="size-checkboxes">
                         @foreach(['XS', 'S', 'M', 'L', 'XL', 'XXL'] as $size)
@@ -167,39 +169,39 @@
                         @endforeach
                     </div>
 
-                    {{-- Цвет --}}
-                    <label for="color_select">Цвет:</label>
+                    {{-- Колір --}}
+                    <label for="color_select">Колір:</label>
                     <select name="color" id="color_select" onchange="toggleCustomColor()">
-                        <option value="">Выберите цвет</option>
+                        <option value="">Оберіть колір</option>
                         @foreach($colors as $color)
                             <option value="{{ $color }}" {{ old('color', $product->color ?? '') === $color ? 'selected' : '' }}>
                                 {{ $color }}
                             </option>
                         @endforeach
                         <option value="custom" {{ old('color', $product->color ?? '') === 'custom' ? 'selected' : '' }}>+
-                            Новый цвет</option>
+                            Новий колір</option>
                     </select>
 
                     <div id="color_custom_block"
                         style="display: {{ old('color', $product->color ?? '') === 'custom' ? 'block' : 'none' }};">
-                        <input type="text" name="color_custom" id="color_custom" placeholder="Введите цвет"
+                        <input type="text" name="color_custom" id="color_custom" placeholder="Введіть колір"
                             value="{{ old('color_custom', (old('color') === 'custom' ? $product->color ?? '' : '')) }}">
                     </div>
 
                     <label>
-                        Цена:
+                        Ціна:
                         <input type="number" name="price" value="{{ old('price', $product->price ?? '') }}" required>
                     </label>
                     <button type="submit" class="btn-submit">
-                        {{ isset($product) ? 'Сохранить изменения' : 'Добавить товар' }}
+                        {{ isset($product) ? 'Зберегти зміни' : 'Додати товар' }}
                     </button>
                 </form>
                 @if(isset($product))
                     <form action="{{ route('products.destroy', $product->id) }}" method="POST" class="delete-product-form"
-                        onsubmit="return confirm('Удалить этот товар?');" style="margin-top: 1rem;">
+                        onsubmit="return confirm('Видалити цей товар?');" style="margin-top: 1rem;">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn-delete">Удалить товар</button>
+                        <button type="submit" class="btn-delete">Видалити товар</button>
                     </form>
                 @endif
             </div>
@@ -208,8 +210,8 @@
     </div>
     <form method="POST" class="logout-form" action="{{ route('logout') }}">
         @csrf
-        <button type="submit" class="logout-button">Выйти из редактирования</button>
+        <button type="submit" class="logout-button">Вийти з редагування</button>
     </form>
 @endsection
 
-@vite(['resources/css/manage.css', 'resources/js/brand.js', 'resources/css/manage_aside.css'])
+@vite(['resources/css/manage.css', 'resources/js/brand.js', 'resources/css/manage_aside.css', 'resources/js/sidebar-move.js'])

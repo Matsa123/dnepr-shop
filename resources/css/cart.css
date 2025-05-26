@@ -6,6 +6,19 @@
     border-radius: 10px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
     font-family: 'Segoe UI', sans-serif;
+
+    /* Начальное состояние для анимации */
+    opacity: 0;
+    transform-style: preserve-3d;
+    transform: translateZ(-20px); /* лёгкий 3D отступ назад */
+    animation: fadeIn3D 1s ease forwards;
+}
+
+@keyframes fadeIn3D {
+    to {
+        opacity: 1;
+        transform: translateZ(0);
+    }
 }
 
 .titlle_ {
@@ -67,7 +80,9 @@
     border-radius: 8px;
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
 }
-
+.item-total {
+    font-weight: bold;
+}
 /* Кнопки изменения количества */
 .inc_btn {
     display: flex;
@@ -191,11 +206,7 @@ button[type="submit"]:hover {
     }
 
     .item-name {
-        flex: 1 1 70%;
-        font-weight: bold;
-        font-size: 1rem;
-        display: flex;
-        align-items: center;
+       font-weight: bold;
     }
 
     .item-price,

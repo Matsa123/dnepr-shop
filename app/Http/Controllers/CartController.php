@@ -42,7 +42,7 @@ class CartController extends Controller
         $totalCount = array_sum(array_column($cart, 'quantity'));
 
         return response()->json([
-            'message' => 'Товар додано в корзину',
+            'message' => 'Товар додано у кошик',
             'count' => $totalCount
         ]);
     }

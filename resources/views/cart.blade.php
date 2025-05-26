@@ -1,7 +1,7 @@
 @extends('app')
 
 @section('content')
-    <div class="cart-container main_block">
+    <div class="cart-container main_block animated-drop">
         <h2 class="titlle_">Ваше замовлення</h2>
 
         <div id="cart-content">
@@ -45,7 +45,7 @@
                 </div>
 
                 <div class="cart-summary">
-                    <p><strong>Загальна сума: </strong> <span id="total-price"></span> грн</p>
+                    <p><strong>Загальна сума: </strong> <span id="total-price"></span></p>
                 </div>
 
                 <form id="checkout-form" method="POST" action="{{ route('order.store') }}">

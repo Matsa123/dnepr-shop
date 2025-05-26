@@ -150,6 +150,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const typeSelect = document.getElementById('type_select');
     const typeCustom = document.getElementById('type_custom');
     const typeFinal = document.getElementById('type_final');
+    
 
     function isValueInSelect(select, value) {
         return Array.from(select.options).some(option => option.value === value);

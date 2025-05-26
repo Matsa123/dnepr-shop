@@ -36,7 +36,16 @@
     transition: transform 0.3s;
     background-color: #000;
 }
-
+.product-card {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  
+  .product-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
 .product-card:hover {
     transform: scale(1.01);
 }

@@ -6,8 +6,8 @@
 
 /* Обнуляємо все */
 @font-face {
-    font-family: 'Comfortaa';
-    src: url('/public/fonts/Comfortaa\,Rubik_Glitch/Comfortaa/Comfortaa-VariableFont_wght.ttf') format('truetype');
+    font-family: 'Jura';
+    src: url('/public//fonts/Comfortaa,Jura/Jura/Jura-VariableFont_wght.ttf') format('truetype');
     font-weight: 100 900; /* если вариативный шрифт */
     font-style: normal;
     font-display: swap;
@@ -15,7 +15,7 @@
 
 /* Используй шрифт по всему сайту или в нужных местах */
 body {
-    font-family: 'Comfortaa', cursive, sans-serif;
+    font-family: 'Jura';
 }
 
 html,

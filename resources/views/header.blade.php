@@ -13,6 +13,9 @@
                     <li><a href="{{ route('about_us') }}" class="@active('about_us')">
                             Про нас
                         </a></li>
+                        <li><a href="{{ route('delivery') }}" class="@active('delivery')">
+                            Доставка та оплата
+                        </a></li>
                     <li><a href="{{ route('contacts') }}" class="@active('contacts')">
                             Контакти
                         </a></li>

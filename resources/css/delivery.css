@@ -1,0 +1,62 @@
+.about-section {
+    padding: 40px 20px;
+    background: #f9fafb;
+    color: #111827;
+    font-family: 'Jura', sans-serif;
+    text-align: center;
+    perspective: 1000px;
+    /* для 3D эффекта при анимации */
+}
+
+.about-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+    color: #1f2937;
+    letter-spacing: 1px;
+}
+
+.about-container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.07);
+    padding: 30px 25px 40px;
+    text-align: left;
+    transform-origin: top center;
+    opacity: 0;
+    transform-style: preserve-3d;
+    animation: dropAndUnfold 1.2s ease forwards;
+}
+
+.about-text {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    color: #374151;
+}
+
+.about-text.final {
+    font-weight: 600;
+    font-size: 1.15rem;
+    margin-top: 30px;
+    color: #111827;
+}
+
+@keyframes dropAndUnfold {
+    0% {
+        opacity: 0;
+        transform: rotateX(-90deg);
+    }
+
+    60% {
+        opacity: 1;
+        transform: rotateX(20deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform: rotateX(0deg);
+    }
+}
